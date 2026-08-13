@@ -22,6 +22,7 @@
     padding: 20px 40px; border-bottom: 1px solid #E0E2D9;
   }
   header.site .logo { font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; color: #666B60; }
+  header.site .logo:hover { color: #3E6B4A; text-decoration: none; }
   header.site nav { display: flex; gap: 28px; font-size: 14px; }
   header.site nav a { color: #666B60; }
   header.site nav a.accent { color: #3E6B4A; }
@@ -59,8 +60,9 @@
   .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .service-card { background: #FFFFFF; border: 1px solid #E0E2D9; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; }
   .service-card .num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #3E6B4A; }
-  .service-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 21px; margin: 0; line-height: 1.5; }
+  .service-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 21px; margin: 0; line-height: 1.5; min-height: 63px; }
   .service-card p { margin: 0; font-size: 15px; color: #464B41; line-height: 1.8; }
+  .service-card a.more { display: inline-block; font-size: 14px; }
 
   /* Cases accordion */
   #cases .lead { margin: 0 0 44px; color: #666B60; max-width: 40em; }
@@ -215,7 +217,6 @@
         <div>クリエーションライン株式会社</div>
         <div>Japan</div>
         <div class="links">
-          <a href="https://github.com/ikikko?tab=repositories">GitHub</a>
           <a href="https://x.com/ikikko">X @ikikko</a>
         </div>
       </div>
@@ -239,18 +240,19 @@
     <div class="services-grid">
       <div class="service-card">
         <div class="num">01</div>
-        <h3>アジャイルコーチ</h3>
+        <h3>アジャイルコーチ・スクラムマスター</h3>
         <p>週1〜2日を想定した現場への伴走支援。チームの立ち上げ、スクラム・カンバンの導入、複数チームのスケーリング、プロダクトマネジメントへの移行まで。</p>
       </div>
       <div class="service-card">
         <div class="num">02</div>
-        <h3>アジャイル開発、スクラム・カンバン研修</h3>
-        <p>座学と体験をセットにした研修。複数の顧客企業向けに、合計150名以上へ提供してきました。EBM研修・導入支援も主担当としてサービス化しています。</p>
+        <h3>Scrum.org認定研修</h3>
+        <p>Professional Scrum Trainer として、Scrum.org の認定研修を提供。現在提供可能なクラスは Professional Scrum Master™ (PSM) です。</p>
+        <a class="more" href="https://www.itpreneurs.co.jp/training/psm1/">研修スケジュール・詳細を見る →</a>
       </div>
       <div class="service-card">
         <div class="num">03</div>
-        <h3>講演・ワークショップ</h3>
-        <p>バリューストリームマッピング、インセプションデッキ、DevOpsビジネスシミュレーション（フェニックスプロジェクト）、EBMワークショップなど。</p>
+        <h3>オリジナル研修・ワークショップ</h3>
+        <p>アジャイル開発研修、EBM研修・導入支援、バリューストリームマッピング、インセプションデッキ、DevOpsビジネスシミュレーション（フェニックスプロジェクト）、講演など。</p>
       </div>
     </div>
   </section>
