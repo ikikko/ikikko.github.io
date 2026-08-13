@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中村 知成 — アジャイルコーチ / スクラムマスター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #F8F8F4; color: #1E211C; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; line-height: 1.85; font-size: 16px; -webkit-font-smoothing: antialiased; }
+  a { color: #3E6B4A; text-decoration: none; }
+  a:hover { color: #2A4E34; text-decoration: underline; }
+  ::selection { background: #DCE8DA; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(248, 248, 244, 0.92); backdrop-filter: blur(8px);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 40px; border-bottom: 1px solid #E0E2D9;
+  }
+  header.site .logo { font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; color: #666B60; }
+  header.site nav { display: flex; gap: 28px; font-size: 14px; }
+  header.site nav a { color: #666B60; }
+  header.site nav a.accent { color: #3E6B4A; }
+
+  section { padding-bottom: 96px; }
+
+  .section-title { display: flex; align-items: baseline; gap: 20px; margin-bottom: 40px; }
+  .section-title h2 { font-family: 'Zen Old Mincho', serif; font-size: 34px; margin: 0; font-weight: 700; }
+  .section-title .en { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #868B7E; letter-spacing: 0.1em; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1fr 320px; gap: 64px; align-items: start; padding: 88px 0 96px; }
+  .hero .eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #3E6B4A; margin-bottom: 24px; }
+  .hero h1 { font-family: 'Zen Old Mincho', serif; font-weight: 900; font-size: 60px; line-height: 1.25; margin: 0 0 8px; letter-spacing: 0.01em; }
+  .hero .romaji { font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #666B60; margin-bottom: 32px; }
+  .hero .lead { font-family: 'Zen Old Mincho', serif; font-size: 25px; line-height: 1.8; margin: 0 0 28px; max-width: 20em; text-wrap: pretty; }
+  .hero .desc { margin: 0 0 36px; max-width: 34em; color: #464B41; text-wrap: pretty; }
+  .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { display: inline-block; background: #1E211C; color: #F8F8F4; padding: 14px 28px; border-radius: 2px; font-size: 15px; font-weight: 500; }
+  .btn-primary:hover { background: #3E6B4A; color: #F8F8F4; text-decoration: none; }
+  .btn-secondary { display: inline-block; border: 1px solid #DBDED2; color: #1E211C; padding: 14px 28px; border-radius: 2px; font-size: 15px; font-weight: 500; }
+  .btn-secondary:hover { border-color: #3E6B4A; color: #3E6B4A; text-decoration: none; }
+  .hero .photo { width: 100%; aspect-ratio: 1/1; background: #ECEEE6 center/cover no-repeat; border: 1px solid #E0E2D9; border-radius: 50%; }
+  .hero .meta { margin-top: 20px; padding-top: 20px; border-top: 1px solid #E0E2D9; font-size: 14px; color: #666B60; line-height: 1.9; }
+  .hero .meta .links { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; }
+
+  /* PST band */
+  .pst-band { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 44px 40px; background: #E6EDE4; margin-bottom: 96px; }
+  .pst-band .eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #3E6B4A; margin-bottom: 12px; }
+  .pst-band p { margin: 0; font-family: 'Zen Old Mincho', serif; font-size: 22px; line-height: 1.7; }
+  .pst-band a.more { display: inline-block; margin-top: 16px; font-size: 14px; }
+  .pst-band .cert-img { aspect-ratio: 4/3; background: #E6EDE4 center/contain no-repeat; border: 1px solid #CDD8C7; }
+
+  /* Services */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .service-card { background: #FFFFFF; border: 1px solid #E0E2D9; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .service-card .num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #3E6B4A; }
+  .service-card h3 { font-family: 'Zen Old Mincho', serif; font-size: 21px; margin: 0; line-height: 1.5; }
+  .service-card p { margin: 0; font-size: 15px; color: #464B41; line-height: 1.8; }
+
+  /* Cases accordion */
+  #cases .lead { margin: 0 0 44px; color: #666B60; max-width: 40em; }
+  .cases-list { display: flex; flex-direction: column; gap: 16px; }
+  .case-item { border: 1px solid #E0E2D9; background: #FFFFFF; padding: 28px 32px; }
+  .case-item summary { cursor: pointer; list-style: none; display: grid; grid-template-columns: 200px 1fr 32px; gap: 40px; align-items: start; }
+  .case-item summary::-webkit-details-marker { display: none; }
+  .case-item .col-meta { display: flex; flex-direction: column; gap: 10px; }
+  .case-item .col-meta .year { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #3E6B4A; letter-spacing: 0.04em; }
+  .case-item .col-meta .info { font-size: 13px; color: #868B7E; line-height: 1.7; }
+  .case-item .col-main h3 { font-family: 'Zen Old Mincho', serif; font-size: 24px; margin: 0; line-height: 1.5; }
+  .case-item .col-main .summary { margin: 10px 0 0; font-size: 14.5px; color: #666B60; line-height: 1.8; max-width: 44em; text-wrap: pretty; }
+  .case-marker { justify-self: end; width: 28px; height: 28px; border: 1px solid #E0E2D9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #3E6B4A; line-height: 1; }
+  .case-marker::before { content: "＋"; }
+  details[open] .case-marker::before { content: "−"; }
+  .case-item .expand { display: grid; grid-template-columns: 200px 1fr; gap: 40px; margin-top: 24px; }
+  .case-item .expand .body { border-top: 1px solid #E9EBE3; padding-top: 20px; }
+  .case-item .expand .body p { margin: 0; color: #464B41; max-width: 44em; text-wrap: pretty; }
+  .case-item .expand .links { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+  .case-item .expand .links span.arrow { color: #868B7E; margin-right: 8px; }
+
+  /* Output */
+  .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
+  .featured-item { display: flex; flex-direction: column; }
+  .featured-item .thumb { aspect-ratio: 16/9; background-color: #F3F4EE; background-size: cover; background-position: center; border: 1px solid #E0E2D9; display: flex; align-items: flex-end; padding: 12px; box-sizing: border-box; }
+  .featured-item .thumb .nothumb { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #868B7E; }
+  .featured-item .date { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #3E6B4A; margin: 14px 0 6px; }
+  .featured-item .title { font-size: 15px; line-height: 1.7; color: #1E211C; }
+  .featured-item .title:hover { color: #3E6B4A; }
+  .featured-item .event { font-size: 13px; color: #868B7E; margin-top: 4px; }
+  .featured-item .event:hover { color: #3E6B4A; }
+
+  .output-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .output-cols h3 { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #868B7E; margin: 0 0 20px; font-weight: 500; }
+  .talk-row { display: grid; grid-template-columns: 92px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid #E9EBE3; font-size: 14.5px; align-items: baseline; }
+  .talk-row .date { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #868B7E; }
+  .talk-row .event { display: block; color: #868B7E; font-size: 13px; margin-top: 2px; }
+  .talk-row .event:hover { color: #3E6B4A; }
+  details.more-talks { margin-top: 18px; }
+  details.more-talks summary { cursor: pointer; list-style: none; font-size: 14px; color: #3E6B4A; }
+  details.more-talks summary::-webkit-details-marker { display: none; }
+  .older-talks { display: flex; flex-direction: column; margin-top: 8px; }
+
+  .book-row { display: grid; grid-template-columns: 48px 92px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid #E9EBE3; font-size: 14.5px; align-items: start; }
+  .book-row .cover { display: block; width: 48px; height: 66px; border: 1px solid #E0E2D9; background-color: #F3F4EE; background-size: cover; background-position: center; }
+  .book-row .date { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #868B7E; padding-top: 2px; }
+  .book-row .note { display: block; color: #868B7E; font-size: 13px; margin-top: 2px; }
+  .community { font-size: 14.5px; color: #464B41; line-height: 1.9; }
+  .community h3 { margin: 40px 0 20px; }
+  .community .item + .item { margin-top: 8px; }
+
+  /* Blog */
+  .blog-row { display: grid; grid-template-columns: 160px 100px 90px 1fr; gap: 20px; padding: 16px 0; border-top: 1px solid #E0E2D9; font-size: 14.5px; align-items: start; }
+  .blog-row .thumb { display: block; aspect-ratio: 16/9; border: 1px solid #E0E2D9; background-color: #F3F4EE; background-size: cover; background-position: center; }
+  .blog-row .date { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #868B7E; padding-top: 2px; }
+  .blog-row .source { font-size: 11.5px; color: #3E6B4A; border: 1px solid #E0E2D9; border-radius: 999px; padding: 2px 10px; text-align: center; }
+  .blog-links { margin-top: 28px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .blog-links a { border: 1px solid #E0E2D9; background: #FFFFFF; padding: 18px 20px; color: #1E211C; display: block; }
+  .blog-links a:hover { border-color: #3E6B4A; text-decoration: none; }
+  .blog-links .title { font-size: 15px; font-weight: 500; }
+  .blog-links .sub { font-size: 13px; color: #868B7E; margin-top: 4px; }
+
+  /* Career */
+  .career-list { display: flex; flex-direction: column; gap: 40px; }
+  .career-org { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
+  .career-org .org-info { position: sticky; top: 24px; }
+  .career-org .org-info .name { font-family: 'Zen Old Mincho', serif; font-size: 20px; line-height: 1.5; }
+  .career-org .org-info .span { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #868B7E; margin-top: 6px; }
+  .career-org .roles { display: flex; flex-direction: column; gap: 2px; border-left: 1px solid #E0E2D9; padding-left: 32px; }
+  .career-org .role { display: flex; gap: 16px; padding: 10px 0; font-size: 15px; }
+  .career-org .role .span { font-family: 'IBM Plex Mono', monospace; color: #868B7E; min-width: 92px; font-size: 13px; padding-top: 2px; }
+  .career-org .role .title { color: #2C3028; }
+
+  /* Certifications */
+  .cert-group { display: grid; grid-template-columns: 160px 1fr; gap: 32px; padding: 20px 0; border-top: 1px solid #E0E2D9; align-items: start; }
+  .cert-group .org { font-size: 14px; color: #666B60; font-weight: 500; }
+  .cert-group .items { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cert-badge { display: inline-block; height: 68px; width: 68px; background-size: contain; background-repeat: no-repeat; background-position: center; opacity: 1; }
+  .cert-badge:hover { opacity: 0.75; }
+
+  /* Contact */
+  .contact-section { background: #1E211C; color: #F0F2EC; padding: 88px 40px; }
+  .contact-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contact-inner h2 { font-family: 'Zen Old Mincho', serif; font-size: 38px; margin: 0 0 20px; font-weight: 700; }
+  .contact-inner .desc { margin: 0; color: #B7BBB0; max-width: 30em; text-wrap: pretty; }
+  .contact-blocks { display: flex; flex-direction: column; gap: 20px; }
+  .contact-block { border-top: 1px solid #363A33; padding-top: 20px; }
+  .contact-block .label { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #868B7E; margin-bottom: 8px; }
+  .contact-block .value { font-size: 22px; font-family: 'IBM Plex Mono', monospace; }
+  .contact-block .value a { color: #F0F2EC; }
+  .contact-block .value a.x-link { color: #93B79B; }
+  .contact-footer { max-width: 1080px; margin: 64px auto 0; padding-top: 24px; border-top: 1px solid #363A33; display: flex; justify-content: space-between; font-size: 13px; color: #868B7E; }
+
+  @media (max-width: 860px) {
+    .wrap { padding: 0 20px; }
+    header.site { padding: 16px 20px; }
+    header.site nav { gap: 16px; flex-wrap: wrap; font-size: 13px; }
+    .hero { grid-template-columns: 1fr; padding: 56px 0 64px; }
+    .hero .photo { max-width: 220px; margin: 0 auto; }
+    .hero h1 { font-size: 42px; }
+    .pst-band { grid-template-columns: 1fr; padding: 32px 20px; }
+    .services-grid, .featured-grid { grid-template-columns: 1fr; }
+    .output-cols { grid-template-columns: 1fr; gap: 40px; }
+    .case-item summary { grid-template-columns: 1fr 32px; }
+    .case-item .col-meta { flex-direction: row; gap: 16px; grid-column: 1 / -1; order: 2; }
+    .case-item .col-main { grid-column: 1 / 2; order: 1; }
+    .case-marker { grid-column: 2; order: 1; }
+    .case-item .expand { grid-template-columns: 1fr; }
+    .case-item .expand > div:first-child { display: none; }
+    .blog-row { grid-template-columns: 100px 1fr; }
+    .blog-row .date, .blog-row .source { display: none; }
+    .career-org { grid-template-columns: 1fr; }
+    .career-org .org-info { position: static; }
+    .career-org .roles { padding-left: 20px; }
+    .cert-group { grid-template-columns: 1fr; }
+    .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+    .contact-footer { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="logo">@ikikko</div>
+  <nav>
+    <a href="#services">提供メニュー</a>
+    <a href="#cases">支援事例</a>
+    <a href="#output">登壇・執筆</a>
+    <a href="#blog">ブログ</a>
+    <a href="#career">経歴</a>
+    <a href="#contact" class="accent">お問い合わせ</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">AGILE COACH / SCRUM MASTER</div>
+      <h1>中村 知成</h1>
+      <div class="romaji">Tomonari Nakamura</div>
+      <p class="lead">エンドユーザーへ価値を届けることを見据えつつ、その価値を産み出すチームもより活き活きと動けるように。</p>
+      <p class="desc">スクラムマスター・アジャイルコーチとして、現場支援をメインに活動しています。1チームの立ち上げから、複数チームのスケーリング、プロダクトマネジメントへの移行まで。研修・ワークショップの提供も行っています。</p>
+      <div class="ctas">
+        <a href="#contact" class="btn-primary">相談・見積もりのご依頼</a>
+        <a href="#cases" class="btn-secondary">支援事例を見る</a>
+      </div>
+    </div>
+    <div>
+      <div class="photo" style="background-image: url('https://avatars.githubusercontent.com/u/26503?v=4');"></div>
+      <div class="meta">
+        <div>クリエーションライン株式会社</div>
+        <div>Japan</div>
+        <div class="links">
+          <a href="https://github.com/ikikko?tab=repositories">GitHub</a>
+          <a href="https://x.com/ikikko">X @ikikko</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pst-band" style="padding-bottom: 0;">
+    <div>
+      <div class="eyebrow">PROFESSIONAL SCRUM TRAINER</div>
+      <p>日本では一桁台となる Professional Scrum Trainer として、Scrum.org の公式研修を提供しています。</p>
+      <a class="more" href="https://www.creationline.com/tech-blog/agile-devops/agile/83024">認定の詳細を読む →</a>
+    </div>
+    <div class="cert-img" style="background-image: url('https://github.com/ikikko/ikikko/raw/master/image/certification/pst-certificate.png');"></div>
+  </section>
+
+  <section id="services">
+    <div class="section-title">
+      <h2>提供メニュー</h2>
+      <span class="en">SERVICES</span>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="num">01</div>
+        <h3>アジャイルコーチ</h3>
+        <p>週1〜2日を想定した現場への伴走支援。チームの立ち上げ、スクラム・カンバンの導入、複数チームのスケーリング、プロダクトマネジメントへの移行まで。</p>
+      </div>
+      <div class="service-card">
+        <div class="num">02</div>
+        <h3>アジャイル開発、スクラム・カンバン研修</h3>
+        <p>座学と体験をセットにした研修。複数の顧客企業向けに、合計150名以上へ提供してきました。EBM研修・導入支援も主担当としてサービス化しています。</p>
+      </div>
+      <div class="service-card">
+        <div class="num">03</div>
+        <h3>講演・ワークショップ</h3>
+        <p>バリューストリームマッピング、インセプションデッキ、DevOpsビジネスシミュレーション（フェニックスプロジェクト）、EBMワークショップなど。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="section-title">
+      <h2>支援事例</h2>
+      <span class="en">CASES</span>
+    </div>
+    <p class="lead">どんな現場で、何を課題として、どう動いたか。関連するアウトプット（登壇資料・ブログ）も添えています。</p>
+    <div class="cases-list" id="cases-list"></div>
+  </section>
+
+  <section id="output">
+    <div class="section-title">
+      <h2>登壇・執筆</h2>
+      <span class="en">OUTPUT</span>
+    </div>
+
+    <div class="featured-grid" id="featured-grid"></div>
+
+    <div class="output-cols">
+      <div>
+        <h3>RECENT TALKS</h3>
+        <div id="recent-talks"></div>
+        <details class="more-talks">
+          <summary>これ以前の登壇歴をすべて見る（2025-2014）</summary>
+          <div class="older-talks" id="older-talks"></div>
+        </details>
+      </div>
+      <div>
+        <h3>BOOKS &amp; ARTICLES</h3>
+        <div id="books-list"></div>
+        <div class="community">
+          <h3>COMMUNITY</h3>
+          <div class="item"><a href="https://jenkins.jp/">Jenkinsユーザー会</a>：Jenkinsユーザーカンファレンスの開催など。Jenkins World 2017 で <a href="https://ikikko.hatenablog.com/entry/2017/09/01/075040">Most Valuable Advocate 賞を受賞</a></div>
+          <div class="item"><a href="https://www.scrumfestfukuoka.org/">Scrum Fest Fukuoka</a> 実行委員 / Regional Scrum Gathering Tokyo などに参加</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <div class="section-title">
+      <h2>ブログ</h2>
+      <span class="en">BLOG</span>
+    </div>
+    <div id="blog-list"></div>
+    <div class="blog-links">
+      <a href="https://www.creationline.com/tech-blog/author/t-nakamura">
+        <div class="title">会社ブログ ＠クリエーションライン</div>
+        <div class="sub">記事一覧を見る →</div>
+      </a>
+      <a href="https://ikikko.hatenablog.com/">
+        <div class="title">個人ブログ</div>
+        <div class="sub">記事一覧を見る →</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="career">
+    <div class="section-title">
+      <h2>経歴</h2>
+      <span class="en">CAREER</span>
+    </div>
+    <div class="career-list" id="career-list"></div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>認定資格</h2>
+      <span class="en">CERTIFICATIONS</span>
+    </div>
+    <div id="cert-groups"></div>
+  </section>
+
+</div>
+
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div>
+      <h2>お問い合わせ</h2>
+      <p class="desc">支援のご相談、研修・講演のご依頼、お見積もりなど。現場の状況をうかがったうえで、進め方をご提案します。以下のどちらかの手段でご連絡ください。</p>
+    </div>
+    <div class="contact-blocks">
+      <div class="contact-block">
+        <div class="label">EMAIL</div>
+        <div class="value"><a id="email-link" href="mailto:ikikko@gmail.com">ikikko@gmail.com</a></div>
+      </div>
+      <div class="contact-block">
+        <div class="label">X (TWITTER) DM</div>
+        <div class="value"><a class="x-link" href="https://x.com/ikikko">@ikikko</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-footer">
+    <span>中村 知成 / Tomonari Nakamura</span>
+  </div>
+</section>
+
+<script>
+(function () {
+  const cases = [
+    {
+      year: "2025 —",
+      meta: "アジャイルコーチ / 複数現場 / プロダクトマネジメント支援",
+      title: "プロジェクトマネジメントからプロダクトマネジメントへの移行支援",
+      summary: "インパクトマップやストーリーマップで提供価値の方向性を揃え、アウトカム指標を明確にして価値を可視化",
+      body: "複数の現場において、プロダクトマネジメント支援を中心としたアジャイルコーチとして活動。インパクトマップやストーリーマップを活用して、チーム全体で提供価値の方向性を合わせる支援や、アウトカム指標の明確化による価値の可視化などを行う。これにより、アウトプットありきではなく、ユーザーが体験するアウトカムや企業のビジネスインパクトといった価値を踏まえたプロダクト開発を進める土台を構築している。",
+      links: [{ label: "支援内容の概要：Backlog World 2025で、プロダクトマネジメントについて登壇してきました！", href: "https://www.creationline.com/tech-blog/agile-devops/agile/80866" }]
+    },
+    {
+      year: "2021 —",
+      meta: "サービス主担当 / 研修・伴走支援 / EBM",
+      title: "EBM（エビデンスベースドマネジメント）研修・導入支援",
+      summary: "価値に基づくゴール設定と日々の活動のアラインメントを、研修・ワークショップと伴走支援で実現",
+      body: "EBM研修・導入支援サービスを、主担当としてサービス化して提供。事業やプロダクトが提供する価値の理解と価値に基づいたゴールの設定、そのゴールにアラインメントした日々の業務活動の実施を実現できるよう、社内外のチーム・プロジェクトに対して研修・ワークショップや伴走支援を行っている。",
+      links: [{ label: "EBM研修・導入支援サービス", href: "https://www.creationline.com/services/ebm/" }, { label: "関連ブログ（クリエーションライン）", href: "https://www.creationline.com/tech-blog/agile-devops/ebm" }]
+    },
+    {
+      year: "2024",
+      meta: "スクラムマスター / 総合事務用品メーカー / DX推進",
+      title: "新チーム立ち上げと、実績ベースのスケジュール予測の展開",
+      summary: "初期プロダクトバックログ作成とキックオフを支援。実績ベースの予測を全チームへ展開し、計画との乖離を可視化",
+      body: "複数の業務ドメインに分かれているDX推進プロジェクトにおいて、一つのドメインのスクラムマスターを担当。新しいチームの立ち上げ期に、POの壁打ち相手となり、初期プロダクトバックログ作成の支援や、ステークホルダーと共通認識を形成するキックオフワークのファシリテートなどを行った。また、透明性を高める活動の一環で、実績をベースとしたスケジュール予測の土台作りを行い、全チームへ展開。当初の計画と現状の乖離をプロジェクトに関わる全チームで認識でき、適切に検査と適応を図れる状態へと移行できた。",
+      links: []
+    },
+    {
+      year: "2022 — 2024",
+      meta: "スクラムマスター / SoSM / Scrum@Scale・4チーム",
+      title: "Webサービス開発会社での、チーム横断の依存関係の見える化",
+      summary: "4チームの依存関係を洗い出し、クリティカルパスを可視化してスクラムオブスクラムの透明性を高めた",
+      body: "Scrum@Scaleを採用しているWebサービス開発会社にて、業務の半分はあるチームAのスクラムマスターとして、もう半分はチームAを含む4チームからなるスクラムオブスクラム（SoS）に対するスクラムマスター（SoSM）として活動。SoSMとしては、特定のチームというより、チーム横断の調整を中心に支援。チーム間の依存関係を洗い出し、クリティカルパスを見えるようにすることによって、SoSの透明性を高める活動などを行った。",
+      links: [{ label: "チーム横断調整の取り組み：Scrum@Scaleを用いたスケーリングという旅の始まり", href: "https://confengine.com/conferences/scrum-fest-fukuoka-2024/proposal/19437/scrumscale" }, { label: "「Scrum@Scale研修」参加レポート", href: "https://www.creationline.com/tech-blog/62188" }]
+    },
+    {
+      year: "2021 — 2022",
+      meta: "スクラムマスター / 物流会社向け受託開発 / LeSS・2〜3チーム",
+      title: "PO支援と、自動テスト環境の整備からの品質づくり",
+      summary: "ステークホルダーとPOの架け橋となり、完成の定義を複数チームで統一。自動テスト環境を整備して品質の土台を構築",
+      body: "2〜3チームからなるLeSSの体制で、社内用Webアプリケーションを開発している案件を支援。顧客企業所属のPOのキャリアが浅かったため、ステークホルダーとPOの架け橋となって会話の場が円滑に進むようにファシリテート。迅速な価値提供のためにフロー効率を優先する取り組みや、複数チーム間での完成の定義を定めるワークショップの主催なども行う。並行して、自分が手を動かしてテスト環境の整備を進め、テストや品質をチームで考えて実践していくための土台を作った。",
+      links: [{ label: "スクラムマスターの頭の中：あのときスクラムマスターは何を考えていたのか？", href: "https://www.docswell.com/s/ikikko/KE2LQZ-in-scrum-masters-mind" }, { label: "えっ、まだユニットテスト書いてない現場があるんですか？", href: "https://speakerdeck.com/ikikko/why-dont-you-write-unit-tests" }]
+    },
+    {
+      year: "継続",
+      meta: "研修・ワークショップ / 累計150名以上",
+      title: "アジャイル開発研修、VSM、キックオフ支援などの提供",
+      summary: "アジャイル開発研修を複数の顧客企業へ合計150名以上に提供。VSM・フェニックスプロジェクト・インセプションデッキも実施",
+      body: "スクラムマスターとしてチームを支援する傍ら、各種の研修やワークショップを提供。アジャイル開発研修（座学・体験をセットとして複数の顧客企業向けに合計150名以上へ提供）、バリューストリームマッピングワークショップ、DevOpsビジネスシミュレーション研修：フェニックスプロジェクト、キックオフ支援（インセプションデッキ作成ワークショップ など）。",
+      links: [{ label: "VSMワークショップの提供事例", href: "https://www.creationline.com/clientvoice/case29" }, { label: "フェニックスプロジェクト", href: "https://www.creationline.com/devops-ss/phoenix-project" }]
+    }
+  ];
+
+  const career = [
+    { name: "クリエーションライン株式会社", span: "2021 —", roles: [
+      { span: "2025 —", title: "複数現場でのプロダクトマネジメント支援を中心としたアジャイルコーチ" },
+      { span: "2021 —", title: "EBM研修・導入支援（主担当としてサービス化）" },
+      { span: "2024", title: "総合事務用品メーカーでのスクラムマスター" },
+      { span: "2022 — 2024", title: "Webサービス開発会社でのスクラムマスター（Scrum@Scale）" },
+      { span: "2021 — 2022", title: "物流会社向け受託開発でのスクラムマスター（LeSS）" }
+    ]},
+    { name: "株式会社ヌーラボ", span: "2009 — 2021", roles: [
+      { span: "2016 — 2021", title: "スクラムマスター・アジャイルコーチ" },
+      { span: "2016 — 2018", title: "Backlog開発マネージャー" },
+      { span: "2012 — 2016", title: "Backlog開発・運用エンジニア（Java, Git, MySQL, Jenkins, Docker, Ansible, Linux, AWS）" },
+      { span: "2009 — 2012", title: "受託開発向けエンジニア（Java, Subversion, MySQL, Jenkins）" }
+    ]},
+    { name: "日立ソフトウェアエンジニアリング株式会社", span: "2006 — 2009", roles: [
+      { span: "2006 — 2009", title: "商社向け基幹システムの追加開発（SAP, ABAP）" }
+    ]}
+  ];
+
+  const featured = [
+    { date: "2025/11/29", event: "Backlog World 2025", title: "プロジェクトマネジメントからプロダクトマネジメントへ：価値中心のアプローチで実現するアジャイルなプロダクト開発", href: "https://www.docswell.com/s/ikikko/ZQXW2X-project-to-product-with-value-based-approach", thumb: "https://bcdn.docswell.com/page/KJ4ML1Q1E1.jpg" },
+    { date: "2025/07/19", event: "Scrum Fest Osaka 2025", title: "スクラムじゃなくとも、アジャイルは目指せる！そう、「アジャイルのカタ」ならね", href: "https://www.docswell.com/s/ikikko/ZMLP28-agile-with-kata", thumb: "https://bcdn.docswell.com/page/KJ441MDVJ1.jpg" },
+    { date: "2025/03/25", event: "実践的なスクラム学習に役立つ！日本語対応で注目のScrum.org™研修＆認定資格を解説", title: "Scrum.org™研修＆認定資格 徹底解説", href: "https://www.docswell.com/s/ikikko/5DN7DD-scrum-org-learning", thumb: "https://bcdn.docswell.com/page/GJ5RV19974.jpg" }
+  ];
+
+  const EVENT_URLS = {
+    "Backlog World 2025": "https://jbuginfo.backlog.com/backlogworld2025/",
+    "Scrum Fest Osaka 2025": "https://www.scrumosaka.org/2025",
+    "実践的なスクラム学習に役立つ！日本語対応で注目のScrum.org™研修＆認定資格を解説": "https://www.itpreneurs.co.jp/event/20250325sdo/",
+    "組織アジャイル + プロダクトチーム": "https://redjourney.connpass.com/event/363684/",
+    "Scrum Fest Kanagawa 2025 -春の陣-": "https://www.scrumfestkanagawa.org/2025spring",
+    "DevOpsDays Tokyo 2024": "https://www.devopsdaystokyo.org/",
+    "CL Meetup #6": "https://creationline.connpass.com/event/274330/",
+    "Scrum Fest Sapporo 2022": "https://www.scrumfestsapporo.org",
+    "Scrum Fest Niigata 2022": "https://www.scrumfestniigata.org/2022",
+    "Regional SCRUM GATHERING Tokyo 2021": "https://2021.scrumgatheringtokyo.org/",
+    "Scrum Fest Mikawa 2025": "https://www.scrumfestmikawa.org/",
+    "CL Meetup #30": "https://creationline.connpass.com/event/329178/",
+    "アジャイルひよこクラブ": "https://agile-hiyoko-club.connpass.com/event/238670/",
+    "Scrum Fest Mikawa 2021": "https://www.scrumfestmikawa.org/2021",
+    "XP祭り2021 @ Online": "http://xpjug.com/xp2021/",
+    "Agile Tour Osaka × miniPLoP 2020": "https://www.kokuchpro.com/event/8f4b35513c024ab78bc84c9b4cbcf81a/",
+    "XP祭り2020 @ Online": "http://xpjug.com/xp2020/",
+    "VSMワークショップ": "https://project-is-burning.connpass.com/event/181797/",
+    "インセプションデッキ ワークショップ": "https://project-is-burning.connpass.com/event/178666/",
+    "カンバンボードの上手な活用術（初級編）": "https://project-is-burning.connpass.com/event/172700/",
+    "京都アジャイル勉強会 #91": "https://kyoaja.connpass.com/event/138909/",
+    "CircleCI ユーザーコミュニティミートアップ #4": "https://circleci.connpass.com/event/125622/",
+    "DevLOVE関西": "https://devlove-kansai.doorkeeper.jp/events/86809",
+    "eureka x Nulab スクラム開発の現場": "https://eure.connpass.com/event/74590/",
+    "第11回 Jenkins勉強会": "https://jenkins.jp/",
+    "Geeks Who Drink in Tokyo -Agile Team Edition-": "https://nulab.connpass.com/event/63537/",
+    "第10回 Jenkins勉強会": "https://jenkins.jp/",
+    "Regional SCRUM GATHERING Tokyo 2017": "https://2017.scrumgatheringtokyo.org/",
+    "第9回 Jenkins勉強会": "https://jenkins.connpass.com/event/35030/",
+    "第9回 コンテナ型仮想化の情報交換会＠福岡": "https://ct-study.connpass.com/event/28449/",
+    "Developers Summit 2015 FUKUOKA": "https://event.shoeisha.jp/devsumi/20150914",
+    "NUCON": "https://nucon.nulab.com/"
+  };
+  const withEvent = t => { t.eventHref = EVENT_URLS[t.event] || t.href; };
+
+  const talks = [
+    { date: "2025/09/12", event: "組織アジャイル + プロダクトチーム", title: "パネルディスカッション", href: "https://redjourney.connpass.com/event/363684/" },
+    { date: "2024/04/16", event: "DevOpsDays Tokyo 2024", title: "4 Keys Metricsだけじゃない！価値に目を向けたメトリクス：EBMに触れてみよう", href: "https://www.docswell.com/s/ikikko/Z38X9Y-get-in-touch-with-ebm" },
+    { date: "2025/03/17", event: "Scrum Fest Kanagawa 2025 -春の陣-", title: "スクラムだけじゃない！アジャイルを実践するための普遍的なパターン「アジャイルのカタ」", href: "https://www.docswell.com/s/ikikko/5MX2LN-agile-kata-yet-another-scrum" },
+    { date: "2023/03/07", event: "CL Meetup #6", title: "ワークショップを「あー楽しかった」で終わらせない！次につながるアクションの定め方", href: "https://www.docswell.com/s/ikikko/KNRMDQ-how-to-plan-the-action-with-workshop" },
+    { date: "2022/11/04", event: "Scrum Fest Sapporo 2022", title: "スクラムマスターの頭の中：あのときスクラムマスターは何を考えていたのか？", href: "https://www.docswell.com/s/ikikko/KE2LQZ-2022-11-04-004804" },
+    { date: "2022/05/21", event: "Scrum Fest Niigata 2022", title: "半年前の僕らを超えろ！自動テストに向き合いながら、一歩ずつ進もうとしている現場のお話", href: "https://www.docswell.com/s/ikikko/517LV5-baby-step-field-with-automation-test" },
+    { date: "2021/01/06", event: "Regional SCRUM GATHERING Tokyo 2021", title: "『The Great ScrumMaster』翻訳チームの話", href: "https://confengine.com/regional-scrum-gathering-tokyo-2021/proposal/15054/the-great-scrummaster" }
+  ];
+
+  const olderTalks = [
+    { date: "2025/09/06", event: "Scrum Fest Mikawa 2025", title: "出張！何でもEBMワークショップ団 in 三河（参加者限定公開）", href: "https://www.scrumfestmikawa.org/" },
+    { date: "2024/09/24", event: "CL Meetup #30", title: "EBMワークショップ（参加者限定公開）", href: "https://creationline.connpass.com/event/329178/" },
+    { date: "2022/02/24", event: "アジャイルひよこクラブ", title: "Scrum.orgのEVIDENCE-BASED MANAGEMENT(EBM) を受けてきたお話", href: "https://speakerdeck.com/ikikko/taking-ebm-assessment-in-scrum-dot-org" },
+    { date: "2021/10/02", event: "Scrum Fest Mikawa 2021", title: "えっ、まだユニットテスト書いてない現場があるんですか？", href: "https://speakerdeck.com/ikikko/why-dont-you-write-unit-tests" },
+    { date: "2021/09/18", event: "XP祭り2021 @ Online", title: "2人のスクラムマスターが、新しい現場に飛び込んでみたときのお話", href: "https://docs.google.com/presentation/d/1eQuAoOtxp9wAL7txwSXfNr1uVzFx2O9ijutXfE4e7AY/edit" },
+    { date: "2020/12/22", event: "Agile Tour Osaka × miniPLoP 2020", title: "SCRUMMASTER THE BOOKで広がるスクラムマスターの世界", href: "https://www2.slideshare.net/ikikko/scrummaster-the-book" },
+    { date: "2020/09/19", event: "XP祭り2020 @ Online", title: "SCRUMMASTER THE BOOK翻訳活動における、リモート x モブ実践", href: "https://www.slideshare.net/ikikko/scrummaster-the-book-x" },
+    { date: "2020/07/21", event: "VSMワークショップ", title: "バリューストリームマッピング", href: "https://speakerdeck.com/nulabinc/what-is-a-value-stream-mapping" },
+    { date: "2020/06/30", event: "インセプションデッキ ワークショップ", title: "インセプションデッキとは", href: "https://speakerdeck.com/nulabinc/what-is-a-inception-deck" },
+    { date: "2020/04/27", event: "カンバンボードの上手な活用術（初級編）", title: "カンバンボード活用術", href: "https://speakerdeck.com/nulabinc/good-usage-of-kanban-board" },
+    { date: "2019/07/29", event: "京都アジャイル勉強会 #91", title: "アジャイルに有効な「ボード」の最適解を本気出して考えてみた", href: "https://backlog.com/ja/blog/ultimate-agile-board/" },
+    { date: "2019/05/28", event: "CircleCI ユーザーコミュニティミートアップ #4", title: "Orbs開発の流れ 〜はじめの一歩から、組織的にメンテしていくための環境構築まで", href: "https://speakerdeck.com/nulabinc/flow-of-orbs-development" },
+    { date: "2019/03/08", event: "DevLOVE関西", title: "プロジェクトを成功させるためのWIPの取り扱いとメンバー構成", href: "https://speakerdeck.com/nulabinc/wip-and-members-for-project-goal" },
+    { date: "2018/02/23", event: "アジャイルひよこクラブ", title: "スクラム風でのつまずき体験から学んだこと", href: "https://www.slideshare.net/ikikko/ss-88893441" },
+    { date: "2018/01/12", event: "eureka x Nulab スクラム開発の現場", title: "2人のアジャイルコーチが語る、とある現場支援の回想録", href: "https://speakerdeck.com/nulabinc/memoir-about-a-field-support-by-2-agile-coaches" },
+    { date: "2017/11/08", event: "第11回 Jenkins勉強会", title: "Jenkins world 2017の報告", href: "https://www.slideshare.net/ikikko/jenkins-world-2017-81751611" },
+    { date: "2017/08/25", event: "Geeks Who Drink in Tokyo -Agile Team Edition-", title: "現場リーダーが変わっていくなかで身につけたもの", href: "https://speakerdeck.com/nulabinc/what-a-leader-learned-in-changing" },
+    { date: "2017/07/07", event: "第10回 Jenkins勉強会", title: "プルリクエストCI時のTIPSとJenkinsおじさん", href: "https://speakerdeck.com/nulabinc/pullrequest-ci-and-jenkins-master" },
+    { date: "2017/01/13", event: "Regional SCRUM GATHERING Tokyo 2017", title: "個人プレイからチームプレイへと変革する組織", href: "https://speakerdeck.com/nulabinc/ge-ren-pureikaratimupureiheto-bian-ge-suruzu-zhi" },
+    { date: "2016/08/10", event: "第9回 Jenkins勉強会", title: "Jenkins 2を使った究極のpipeline", href: "https://www.slideshare.net/ikikko/jenkins-2pipeline-64866625" },
+    { date: "2016/04/23", event: "第9回 コンテナ型仮想化の情報交換会＠福岡", title: "Docker in CI", href: "https://speakerdeck.com/nulabinc/docker-in-ci-1" },
+    { date: "2015/09/14", event: "Developers Summit 2015 FUKUOKA", title: "継続的インテグレーションの過去・現在・そして未来 〜ヌーラボの事例と共に考える〜", href: "https://speakerdeck.com/nulabinc/ji-sok-de-integuresiyonfalseguo-qu-xian-zai-sositewei-lai-nurabofalseshi-li-togong-nikao-eru" },
+    { date: "2014/02/04", event: "NUCON", title: "職人任せにしないインフラ構築/運用 〜 DevOps時代を生きぬくために 〜", href: "https://speakerdeck.com/nulabinc/yun-yong-devopsshi-dai-wosheng-kinukutameni" }
+  ];
+
+  const BOOK_BASE = "https://raw.githubusercontent.com/ikikko/ikikko/master/image/book/";
+  const books = [
+    { date: "2020/09/09", title: "SCRUMMASTER THE BOOK", note: "翻訳に参加", href: "https://www.amazon.co.jp/dp/B08CRMPQL8", cover: BOOK_BASE + "SCRUMMASTER%20THE%20BOOK.jpeg" },
+    { date: "2016/06/24", title: "現場のインフラ屋が教える インフラエンジニアになるための教科書", note: "「第6章 DevOps時代に求められるスキル」を執筆", href: "https://www.amazon.co.jp/dp/4802610432", cover: BOOK_BASE + "%E7%8F%BE%E5%A0%B4%E3%81%AE%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E5%B1%8B%E3%81%8B%E3%82%99%E6%95%99%E3%81%88%E3%82%8B%20%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%E3%82%A8%E3%83%B3%E3%82%B7%E3%82%99%E3%83%8B%E3%82%A2%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E6%95%99%E7%A7%91%E6%9B%B8.jpeg" },
+    { date: "2014/04/24", title: "WEB+DB PRESS Vol.80", note: "「特集3 はじめてのMac開発環境」を執筆", href: "https://www.amazon.co.jp/dp/4774163988", cover: BOOK_BASE + "WEB%2BDB%20PRESS%20Vol.80.jpeg" },
+    { date: "2012/12/22", title: "WEB+DB PRESS Vol.72", note: "「特集3 Backlog/Cacoo開発ノウハウ大公開」を執筆", href: "https://www.amazon.co.jp/dp/4774153958", cover: BOOK_BASE + "WEB%2BDB%20PRESS%20Vol.72.jpeg" }
+  ];
+
+  const CERT_BASE = "https://raw.githubusercontent.com/ikikko/ikikko/master/image/certification/";
+  const SO = "https://www.scrum.org/assessments/";
+  const certGroups = [
+    { org: "Scrum.org", items: [
+      { label: "PST", img: CERT_BASE + "pst.png", href: "https://www.scrum.org/become-professional-scrum-trainer" },
+      { label: "PSM I", img: CERT_BASE + "psmi.png", href: SO + "professional-scrum-master-i-certification" },
+      { label: "PSM II", img: CERT_BASE + "psmii.png", href: SO + "professional-scrum-master-ii-certification" },
+      { label: "PSM III", img: CERT_BASE + "psmiii.png", href: SO + "professional-scrum-master-iii-certification" },
+      { label: "PSM-AIE", img: CERT_BASE + "psm-aie.png", href: SO + "professional-scrum-master-ai-essentials-certification" },
+      { label: "PSPO I", img: CERT_BASE + "pspoi.png", href: SO + "professional-scrum-product-owner-i-certification" },
+      { label: "PSPO II", img: CERT_BASE + "pspoii.png", href: SO + "professional-scrum-product-owner-ii-certification" },
+      { label: "PSPO-AIE", img: CERT_BASE + "pspo-aie.png", href: "https://www.scrum.org/professional-scrum-product-ownertm-ai-essentials-certification" },
+      { label: "PAL I", img: CERT_BASE + "pali.png", href: SO + "professional-agile-leadership-certification" },
+      { label: "PAL-EBM", img: CERT_BASE + "pal-ebm.png", href: SO + "professional-agile-leadership-evidence-based-management-certification" },
+      { label: "PSFS", img: CERT_BASE + "psfs.png", href: SO + "professional-scrum-facilitation-skills-certification" },
+      { label: "PSPBMS", img: CERT_BASE + "pspbms.png", href: SO + "professional-scrum-product-backlog-management-skills-certification" },
+      { label: "PSK I", img: CERT_BASE + "pski.png", href: SO + "professional-scrum-with-kanban-certification" },
+      { label: "PSU I", img: CERT_BASE + "psui.png", href: SO + "professional-scrum-user-experience-certification" },
+      { label: "PPDV", img: CERT_BASE + "ppdv.png", href: SO + "professional-product-discovery-and-validation-certification" }
+    ]},
+    { org: "ProKanban.org", items: [
+      { label: "PAM", img: CERT_BASE + "pam.webp", href: "https://prokanban.org/professional-applied-metrics/" },
+      { label: "PFMS", img: CERT_BASE + "pfms.png", href: "https://www.prokanban.org/product/pfms" }
+    ]},
+    { org: "その他", items: [
+      { label: "DASA DevOps Fundamentals", img: CERT_BASE + "devops-fundamentals.png", href: "https://www.devopsagileskills.org/certifications/dasa-devops-fundamentals/" },
+      { label: "アジャイルのカタ ファンダメンタルズ", img: CERT_BASE + "akpf.png", href: "https://agilekata.jp/" }
+    ]}
+  ];
+
+  const blogPosts = [
+    { date: "2026/06", source: "会社ブログ", title: "順序付けゲーム形式でトレードオフスライダーを作ってみた", href: "https://www.creationline.com/tech-blog/agile-devops/agile/84475", thumb: "https://www.creationline.com/tech-blog/cms_x3GWkuX/wp-content/uploads/2026/06/80912100c89002e345cbcc81c45c4d1f-1024x995.jpg" },
+    { date: "2026/06", source: "会社ブログ", title: "PSTとして伝えたい、プロフェッショナルスクラムと経験的アプローチ ~ゾンビスクラムの世界を生き抜くために~", href: "https://www.creationline.com/tech-blog/agile-devops/agile/83024", thumb: "https://www.creationline.com/tech-blog/cms_x3GWkuX/wp-content/uploads/2026/06/Gemini_Generated_Image_d65uk3d65uk3d65u-1024x558.png" },
+    { date: "2026/06", source: "会社ブログ", title: "開発着手前におさえておきたい、3つの問いによる共通理解 ~ ユーザーや課題が後付けになる開発を防ぐために ~", href: "https://www.creationline.com/tech-blog/agile-devops/agile/84060", thumb: "https://www.creationline.com/tech-blog/cms_x3GWkuX/wp-content/uploads/2026/05/Gemini_Generated_Image_ieo2c3ieo2c3ieo2-1024x559.png" },
+    { date: "2026/04", source: "会社ブログ", title: "動くのに使われないPoCを防ぐ – プロダクトマネジメントに学ぶ4つのリスク", href: "https://www.creationline.com/tech-blog/agile-devops/agile/83429", thumb: "https://www.creationline.com/tech-blog/cms_x3GWkuX/wp-content/uploads/2026/04/Gemini_Generated_Image_q8po9eq8po9eq8po-1024x559.png" }
+  ];
+
+  // --- derived data ---
+  cases.forEach((c, idx) => { c.hasLinks = c.links.length > 0; c.open = idx === 0; });
+
+  featured.forEach(f => {
+    f.thumbBg = f.thumb ? "url('" + f.thumb + "')" : "repeating-linear-gradient(45deg, #ECEEE6 0 8px, #F3F4EE 8px 16px)";
+    f.noThumb = !f.thumb;
+    withEvent(f);
+  });
+
+  const allTalks = talks.concat(olderTalks).sort((a, b) => b.date.localeCompare(a.date));
+  allTalks.forEach(withEvent);
+  const recentTalks = allTalks.slice(0, 6);
+  const restTalks = allTalks.slice(6);
+
+  books.forEach(b => { b.coverBg = "url('" + b.cover + "')"; });
+  certGroups.forEach(g => g.items.forEach(i => { i.bg = "url('" + i.img + "')"; }));
+
+  blogPosts.sort((a, b) => b.date.localeCompare(a.date));
+  blogPosts.forEach(p => {
+    p.thumbBg = p.thumb ? "url('" + p.thumb + "')" : "repeating-linear-gradient(45deg, #ECEEE6 0 8px, #F3F4EE 8px 16px)";
+  });
+
+  const email = "ikikko@gmail.com";
+  document.getElementById("email-link").textContent = email;
+  document.getElementById("email-link").href = "mailto:" + email;
+
+  const esc = s => String(s).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+
+  // --- render: cases ---
+  document.getElementById("cases-list").innerHTML = cases.map(c => `
+    <details class="case-item" ${c.open ? "open" : ""}>
+      <summary>
+        <div class="col-meta">
+          <div class="year">${esc(c.year)}</div>
+          <div class="info">${esc(c.meta)}</div>
+        </div>
+        <div class="col-main">
+          <h3>${esc(c.title)}</h3>
+          <p class="summary">${esc(c.summary)}</p>
+        </div>
+        <span class="case-marker"></span>
+      </summary>
+      <div class="expand">
+        <div></div>
+        <div class="body">
+          <p>${esc(c.body)}</p>
+          ${c.hasLinks ? `<div class="links">${c.links.map(l => `<div><span class="arrow">↗</span><a href="${esc(l.href)}">${esc(l.label)}</a></div>`).join("")}</div>` : ""}
+        </div>
+      </div>
+    </details>
+  `).join("");
+
+  // --- render: featured ---
+  document.getElementById("featured-grid").innerHTML = featured.map(f => `
+    <div class="featured-item">
+      <a href="${esc(f.href)}" aria-label="${esc(f.title)}">
+        <div class="thumb" style="background-image: ${f.thumbBg};">
+          ${f.noThumb ? `<span class="nothumb">スライド表紙</span>` : ""}
+        </div>
+      </a>
+      <div class="date">${esc(f.date)}</div>
+      <a class="title" href="${esc(f.href)}">${esc(f.title)}</a>
+      <a class="event" href="${esc(f.eventHref)}">${esc(f.event)}</a>
+    </div>
+  `).join("");
+
+  const talkRow = t => `
+    <div class="talk-row">
+      <span class="date">${esc(t.date)}</span>
+      <span><a href="${esc(t.href)}">${esc(t.title)}</a><a class="event" href="${esc(t.eventHref)}">${esc(t.event)}</a></span>
+    </div>
+  `;
+  document.getElementById("recent-talks").innerHTML = recentTalks.map(talkRow).join("");
+  document.getElementById("older-talks").innerHTML = restTalks.map(talkRow).join("");
+
+  // --- render: books ---
+  document.getElementById("books-list").innerHTML = books.map(b => `
+    <div class="book-row">
+      <a class="cover" href="${esc(b.href)}" aria-label="${esc(b.title)}" style="background-image: ${b.coverBg};"></a>
+      <span class="date">${esc(b.date)}</span>
+      <span><a href="${esc(b.href)}">${esc(b.title)}</a><span class="note">${esc(b.note)}</span></span>
+    </div>
+  `).join("");
+
+  // --- render: blog ---
+  document.getElementById("blog-list").innerHTML = blogPosts.map(p => `
+    <div class="blog-row">
+      <a class="thumb" href="${esc(p.href)}" aria-label="${esc(p.title)}" style="background-image: ${p.thumbBg};"></a>
+      <span class="date">${esc(p.date)}</span>
+      <span class="source">${esc(p.source)}</span>
+      <a href="${esc(p.href)}">${esc(p.title)}</a>
+    </div>
+  `).join("");
+
+  // --- render: career ---
+  document.getElementById("career-list").innerHTML = career.map(org => `
+    <div class="career-org">
+      <div class="org-info">
+        <div class="name">${esc(org.name)}</div>
+        <div class="span">${esc(org.span)}</div>
+      </div>
+      <div class="roles">
+        ${org.roles.map(r => `
+          <div class="role">
+            <span class="span">${esc(r.span)}</span>
+            <span class="title">${esc(r.title)}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+
+  // --- render: certifications ---
+  document.getElementById("cert-groups").innerHTML = certGroups.map(g => `
+    <div class="cert-group">
+      <div class="org">${esc(g.org)}</div>
+      <div class="items">
+        ${g.items.map(i => `<a class="cert-badge" href="${esc(i.href)}" title="${esc(i.label)}" aria-label="${esc(i.label)}" style="background-image: ${i.bg};"></a>`).join("")}
+      </div>
+    </div>
+  `).join("");
+})();
+</script>
+
+</body>
+</html>
